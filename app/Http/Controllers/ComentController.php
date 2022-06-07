@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Models\Comentt;
+
 
 class ComentController extends Controller
 {
@@ -14,7 +16,9 @@ class ComentController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Comentt::all();
+
+        return view('showpost')->with('posts', $posts);
     }
 
     /**
@@ -35,7 +39,35 @@ class ComentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comentt = new Comentt;
+
+        $idpost = auth()->user()->post_id;
+        $user = auth()->user();
+        $comentt->user_id = $user->id;
+        $comentt->bodyComent =  $request->body;
+
+
+
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $requestImage = $request->image;
+
+            $extensao = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extensao;
+
+            $request->image->move(public_path('site/img'), $imageName);
+
+            $comentt->image = $imageName;
+        }
+
+
+
+        $comentt->save();
+
+
+
+        return redirect('comentar');
     }
 
     /**

@@ -9,7 +9,7 @@ notícias atuais -->
 
     <div class="container text-white">
         <div class="row">
-            <div class="col-sm text-white left-0">
+            <div class="col-sm text-white ">
                 <?php foreach ($posts as $key => $value) : ?>
 
 
@@ -65,8 +65,8 @@ notícias atuais -->
 
 
 
-                <?php endforeach; ?> 
-                
+                <?php endforeach; ?>
+
             </div>
             <div class="col-sm text-white">
                 <div class="bg-cyan-400 p-6 rounded-lg">

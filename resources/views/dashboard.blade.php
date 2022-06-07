@@ -14,7 +14,7 @@
                     <div class="max-w-full mx-auto lg:px-5">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 bg-white border-b border-gray-200">
-                                @can('user')
+                                
                                 <h1 class="font-serif">Informações sobre mim:</h1>
                                 <div class="flex">
                                     <div class="">
@@ -47,7 +47,7 @@
 
                                     </div>
                                     <div class="break-words text-sm font-mono">
-                                        <p>{{ Auth::user()->escola }}</p> <!-- substituirá pelas informações do usuario que estão no BD-->
+                                        <p>{{ Auth::user()->name }}</p> <!-- substituirá pelas informações do usuario que estão no BD-->
                                         <p>{{ Auth::user()->social }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
                                         <p>{{ Auth::user()->Born }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
                                         <p>{{ Auth::user()->telefone }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
@@ -56,9 +56,7 @@
 
 
                                 <p>Seus tweets:</p>
-                                @elsecan('admin')
-                                Somente o administrador pode ler isso
-                                @endcan
+                          
 
                             </div>
                         </div>

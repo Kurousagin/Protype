@@ -57,7 +57,7 @@
             </svg>
         </div>
 
-        <form method="POST" action="/twet">
+        <form method="POST" action="/coment">
             @csrf
 
             <textarea name="body" id="body" class="w-full" placeholder="Seu comentário" style="border-radius: 20px" required autofocus></textarea>

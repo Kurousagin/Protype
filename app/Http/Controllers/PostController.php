@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -15,15 +16,19 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Posts::all();
+        
+        $user = auth()->user();
 
+        $posts = $user->posts;
+        
         return view('dashboard')->with('posts', $posts);
     }
 
     public function Home()
 
     {
-        $posts = Posts::all();
+        $posts = Posts::orderBy('created_at', 'desc')->take(6)->get();
+        
 
 
 

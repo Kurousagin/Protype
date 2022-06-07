@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ComentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Models\Comentt;
 use Illuminate\Support\Facades\URL;
 
 /*
@@ -19,9 +21,15 @@ use Illuminate\Support\Facades\URL;
 Route::get('/', function () {
     return view('welcome');
 })->name('initi');
+
 Route::get('/home/sobre', function () {
     return view('sobre');
 })->name('sobre');
+
+
+Route::get('/exclusive', function () {
+    return view('premium.inscri');
+})->middleware(['auth'])->name('/exclusive');
 
 Route::get('/posts', [PostController::class, 'Home'])->middleware(['auth'])->name('/posts');
 
@@ -34,6 +42,11 @@ Route::get('/twet', [PostController::class, 'index'])->name('home');
 
 /*rota para criar tweet */
 Route::post('/twet', [PostController::class, 'store']);
+
+Route::get('/coment', [ComentController::class, 'index'])->name('home');
+
+/*rota para criar coemntário */
+Route::post('/coment', [ComentController::class, 'store']);
 
 /*rota para pesquisar usuario---- experimental   */
 Route::any('/search', [UserController::class, 'index']);

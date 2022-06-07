@@ -1,12 +1,14 @@
 <x-guest-layout>
 
-<!-- links-->
-<link rel="stylesheet" href="{{ asset('site/css/style.css')}}">
+    <!-- links-->
+
 
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <P>ConnectStudent</P>
+                <h1 class="text-lg text-white ">ConnectStudent</h1>
+
+
             </a>
         </x-slot>
 
