@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\Comentt;
+use App\Models\User;
 use Illuminate\Support\Facades\URL;
 
 /*
@@ -31,22 +32,38 @@ Route::get('/exclusive', function () {
     return view('premium.inscri');
 })->middleware(['auth'])->name('/exclusive');
 
+Route::get('/con/forum', function () {
+    return view('forum.index');
+})->middleware(['auth'])->name('/forum');
+
+
+
+
+Route::get('user/edit', [UserController::class, 'edit'])->middleware(['auth'])->name('/user/edit');
+Route::put('/user/update/{id}', [UserController::class, 'update'])->middleware(['auth']);
+
+
 Route::get('/posts', [PostController::class, 'Home'])->middleware(['auth'])->name('/posts');
 
-
-Route::get('/dashboard/edit', [UserController::class, 'edit'])->middleware(['auth'])->name('/dashboard/edit');
-Route::post('/dashboard/update', [UserController::class, 'update'])->middleware(['auth'])->name('/user/update');
-
 /*rota para criar tweet */
+
+Route::delete('/post/{id}', [PostController::class, 'destroy'])->middleware(['auth'])->name('');
+
+Route::get('/post/edit/{id}', [PostController::class, 'edit'])->middleware(['auth'])->name('');
+
 Route::get('/twet', [PostController::class, 'index'])->name('home');
 
 /*rota para criar tweet */
 Route::post('/twet', [PostController::class, 'store']);
 
-Route::get('/coment', [ComentController::class, 'index'])->name('home');
 
-/*rota para criar coemntário */
+// exibir comentario
+Route::get('/coment/exibir/{id}', [ComentController::class, 'show']);
+
+// rota para criar comentário
 Route::post('/coment', [ComentController::class, 'store']);
+
+
 
 /*rota para pesquisar usuario---- experimental   */
 Route::any('/search', [UserController::class, 'index']);

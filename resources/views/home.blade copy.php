@@ -225,7 +225,7 @@ notícias atuais -->
                                             </div>
 
 
-                                            <img src="{!! asset($value->imagem) !!}" alt="" />
+                                            <img src="{!! asset($value->) !!}" alt="" />
 
                                             <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
                                         </div>

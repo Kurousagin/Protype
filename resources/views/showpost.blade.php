@@ -14,21 +14,22 @@
 
                     <div class=" flex ">
 
-                        <a href=""> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 " src="{{ asset('site/img/eyes.jpeg') }}" />
+                        <a href=""> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 "  src="{!! url('storage/'.$post->user->perfilImage) !!}"/>
                         </a>
 
 
                         <div class="pl-10">
                             <h3>{!! $post->bodyContent !!}</h3>
+                            <img class=" max-h-screen rounded-lg" src="{!! url('storage/'.$post->postImage) !!}" alt="" />
                             <span class="pull-right"> {!! $post->created_at->diffForHumans() !!}</span>
                         </div>
-
+    
 
 
                     </div>
 
                     <div class="static font-normal hover:font-bold">
-                        <a href="{{ route('dashboard') }}">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('dashboard') }}">{{ $post->user->social }}</a>
                     </div>
 
                 </div>
@@ -37,6 +38,10 @@
 
     </div>
 
+    <a href=" {!! url('/coment/exibir/'.$post->id) !!}" class="text-white">Exibir
+                            </a>
+
+                            
 
 
 
@@ -57,10 +62,13 @@
             </svg>
         </div>
 
-        <form method="POST" action="/coment">
+        <form method="POST" action="/coment" enctype="multipart/form-data">
             @csrf
+            <input type='file' id="image" name="image" class="default" />
 
-            <textarea name="body" id="body" class="w-full" placeholder="Seu comentário" style="border-radius: 20px" required autofocus></textarea>
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
+
+            <input name="body" id="body" class="w-full" placeholder="Seu comentário" style="border-radius: 20px"  autofocus>
 
 
             <hr class="my-4">
@@ -73,11 +81,9 @@
                 </svg>
             </button>
 
-            <form action="">
-
-                @csrf
-                <input type='file' id="image" name="image" class="default" />
-            </form>
+            
+                
+           
 
 
 

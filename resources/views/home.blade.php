@@ -18,24 +18,23 @@ notícias atuais -->
                             <div class="bg-cyan-700 overflow-hidden shadow-md shadow-indigo-400 sm:rounded-lg">
                                 <div class="p-6 bg-cyab-700 border-b border-gray-200">
 
-                                    <div class=" flex ">
+                                    <div class=" flex "> 
                                         <!-- onde vai ser chamada a imagem que o usuario tem como de perfil -->
                                         <a href="">
-                                            <!--  <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 "
-                                                src="{!! asset($value->user->image) !!}" alt="" />-->
-                                            <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 " src="{!! asset('site/img/eyes.jpeg') !!}" alt="" />
+                                            <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 "  src="{!! url('storage/'.$value->user->perfilImage) !!}"  alt="" />
 
                                         </a>
+                                        
 
 
                                         <div class="pl-10 text-black text-lg">
                                             <div class="border bg-white border-black p-6 rounded-lg">
                                                 <h3>{!! $value->bodyContent !!}</h3> <!-- onde vai ser chamada o post do usuario -->
+                                                <img class=" w-24 rounded-lg h-20 " src="{!! url('storage/'.$value->postImage) !!}" alt="" />
 
                                             </div>
 
 
-                                            <img src="{!! asset($value->imagem) !!}" alt="" />
 
                                             <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
                                         </div>
@@ -45,7 +44,7 @@ notícias atuais -->
                                     </div>
 
                                     <div class=" font-normal hover:font-bold ">
-                                        <a href="{{ route('dashboard') }}">{!! $value->user->name !!}</a>
+                                        <a href="{{ route('dashboard') }}">{!! $value->user->social !!}</a>
                                     </div>
 
                                     <div class=" text-white">
@@ -123,14 +122,14 @@ notícias atuais -->
             </svg>
         </div>
 
-        <form method="POST" action="/twet">
+        <form method="POST" action="/twet" enctype="multipart/form-data">
             @csrf
 
-            <textarea name="body" id="body" class="w-full" placeholder="tweet aqui ó" style="border-radius: 20px" required autofocus></textarea>
+            <textarea name="body" id="body" class="w-full" placeholder="tweet aqui ó" style="border-radius: 20px"  autofocus></textarea>
 
 
             <hr class="my-4">
-
+            <input type='file' id="image" name="image" multiple class="default" />
 
 
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 rounded-lg shadow  text-sm  h-5 w-5">
@@ -138,12 +137,8 @@ notícias atuais -->
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
             </button>
-
-            <form action="">
-
-                @csrf
-                <input type='file' id="image" name="image" class="default" />
-            </form>
+                
+            
 
 
 

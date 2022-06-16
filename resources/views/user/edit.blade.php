@@ -15,40 +15,48 @@
 
 
 
-        <form method="POST" action="{{ route('dashboard') }}">
+        <form method="POST" action="/user/update/{{ Auth::user()->id}}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-- Name -->
-            <div>
+            
+            <div class="mt-4">
+                
+                <x-input class="block mt-1 w-full" type="file" id="image" name="image"   autofocus />
 
-                <x-inputclass="block mt-1 w-full" type="text" placeholder="{{ Auth::user()->name }}" required autofocus />
+            </div>
+
+            <div class="mt-4">
+
+                <x-input class="block mt-1 w-full" type="text" placeholder="Seu nome "  value="{{ Auth::user()->name }}" name="name" autofocus />
             </div>
 
             <!-- Social -->
             <div class="mt-4">
 
 
-                <x-input class="block mt-1 w-full" type="email" placeholder="{{ Auth::user()->social }}" required />
+                <x-input class="block mt-1 w-full" type="text" placeholder="Seu @" value="{{ Auth::user()->social }}" name="social" />
             </div>
 
-            <!-- Social -->
+            <!-- TELEFONE -->
             <div class="mt-4">
 
 
-                <x-input class="block mt-1 w-full" type="email" placeholder="{{ Auth::user()->telefone }}" required />
+                <x-input class="block mt-1 w-full" type="number" placeholder="Seu Numero"  value="{{ Auth::user()->telefone }}" name="telefone" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
 
 
-                <x-input class="block mt-1 w-full" placeholder="{{ Auth::user()->escola }}" type="text" required autocomplete="" />
+                <x-input class="block mt-1 w-full" placeholder="Sua escola"  value="{{ Auth::user()->escola }}" type="text" name="escola" autocomplete="" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4 flex">
-                <x-input class="block mt-1 w-full" type="password" placeholder="{{ Auth::user()->Born }}" disabled />
-                <x-input class="block mt-1 w-full" type="date" />
+                <x-input class="block mt-1 w-full" type="text" placeholder="data de nascimento"  value="{{ Auth::user()->born }}" disabled />
+                <x-input class="block mt-1 w-full" type="date" name="born" />
             </div>
 
             <div class="flex items-center justify-end mt-4">

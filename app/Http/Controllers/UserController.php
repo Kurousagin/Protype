@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
+
 
 class UserController extends Controller
 {
@@ -54,7 +57,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
         return view('user.edit');
     }
@@ -68,7 +71,38 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = User::find($id);
+
+        $user = auth()->user();
+
+        
+
+        $data->name = $request->name;
+        $data->social = $request->social;
+        $data->born = $request->born;
+        $data->escola = $request->escola;
+        $data->telefone = $request->telefone;
+        
+       
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
+
+                $data->perfilImage=$request->image->store('user/'.$user->id);
+                
+           }
+
+        
+        
+
+
+        $data->update();
+        return back();
+        
+
+
+
+
+        // $data->update();
     }
 
     /**

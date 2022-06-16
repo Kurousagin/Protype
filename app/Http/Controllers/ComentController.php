@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Models\Comentt;
-
+use App\Models\Posts;
+use Symfony\Component\Console\Input\Input;
 
 class ComentController extends Controller
 {
@@ -15,10 +16,15 @@ class ComentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $posts = Comentt::all();
 
-        return view('showpost')->with('posts', $posts);
+    
+    {
+        $comentario = Comentt::orderBy('created_at', 'desc')->get();
+        
+        if($comentario -> posts_id){
+
+        }  
+
     }
 
     /**
@@ -39,35 +45,27 @@ class ComentController extends Controller
      */
     public function store(Request $request)
     {
-        $comentt = new Comentt;
+        // $comentt = new Comentt;
 
-        $idpost = auth()->user()->post_id;
-        $user = auth()->user();
-        $comentt->user_id = $user->id;
-        $comentt->bodyComent =  $request->body;
+        
+         $user = auth()->user();
+      
+        $comentario =  new Comentt();
+        $comentario->user_id = $user->id;
+        $comentario->posts_id= $request->input('post_id');
+        $comentario->bodyComent  = $request->input('body');
 
+        
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
 
+            $comentario->comentImage=$request->image->store('user/coment'.$user->id);
+            
+        
+    }
+        $comentario->save();
 
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $requestImage = $request->image;
-
-            $extensao = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extensao;
-
-            $request->image->move(public_path('site/img'), $imageName);
-
-            $comentt->image = $imageName;
-        }
-
-
-
-        $comentt->save();
-
-
-
-        return redirect('comentar');
+        return back();
     }
 
     /**
@@ -78,7 +76,11 @@ class ComentController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Posts::find($id);
+        $comentario = Comentt::where('posts_id', '=',$post->id)->orderBy('created_at', 'desc')->get();
+
+        return view('showcomentt')->with('posts', $post)->with('comentario', $comentario);
+
     }
 
     /**

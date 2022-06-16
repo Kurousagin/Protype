@@ -14,7 +14,7 @@
                     <div class="max-w-full mx-auto lg:px-5">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 bg-white border-b border-gray-200">
-                                
+
                                 <h1 class="font-serif">Informações sobre mim:</h1>
                                 <div class="flex">
                                     <div class="">
@@ -47,16 +47,19 @@
 
                                     </div>
                                     <div class="break-words text-sm font-mono">
-                                        <p>{{ Auth::user()->name }}</p> <!-- substituirá pelas informações do usuario que estão no BD-->
-                                        <p>{{ Auth::user()->social }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
-                                        <p>{{ Auth::user()->Born }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
-                                        <p>{{ Auth::user()->telefone }}</p><!-- substituirá pelas informações do usuario que estão no BD-->
+                                        <ul>
+                                            <li>{{ $user->name }}</li> <!-- substituirá pelas informações do usuario que estão no BD-->
+                                            <li>{{ $user->social }}</li><!-- substituirá pelas informações do usuario que estão no BD-->
+                                            <li>{{ $user->born }}</li><!-- substituirá pelas informações do usuario que estão no BD-->
+                                            <li>{{ $user->telefone }}</li><!-- substituirá pelas informações do usuario que estão no BD-->
+
+                                        </ul>
                                     </div>
                                 </div>
 
 
                                 <p>Seus tweets:</p>
-                          
+
 
                             </div>
                         </div>
@@ -67,7 +70,7 @@
 
 
 
-            
+
         </div>
 
 
@@ -89,19 +92,25 @@
                     <div class="p-6 bg-white border-b border-gray-200">
 
                         <div class=" flex ">
+                            @if(auth()->user()->perfilImage !=null)
 
-                            <a href=""> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 " src="{{ asset('site/img/eyes.jpeg') }}" />
+                            <a href=""> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 " src="{!! url('storage/'.$user->perfilImage) !!}" />
                             </a>
+                            @endif
 
 
                             <div class="pl-10">
                                 <h3>{!! $value->bodyContent !!}</h3>
+                                 <img class=" w-24 rounded-lg h-20 " src="{!! url('storage/'.$value->postImage) !!}" alt="" />
                                 <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
                             </div>
+                            <button> <a href="{!! url('post/edit'.$value->id) !!}" class="btn btn-success" role="button">editar</a> </button>
 
 
-                            <form action="" method="" class="absolute right-8 hover:text-rose-700">
 
+                            <form action="{!! url('post/'.$value->id) !!} " method="POST" class="absolute right-8 hover:text-rose-700">
+                                @csrf
+                                @method('DELETE')
                                 <button type="submit">Excluir</button>
 
                             </form>
@@ -117,6 +126,9 @@
 
         </div>
     <?php endforeach; ?>
+
+
+    
 
 
 

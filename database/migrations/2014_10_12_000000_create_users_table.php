@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date("born")->nullable();
             $table->string("escola")->nullable();
             $table->bigInteger("telefone")->nullable();
-            $table->bigInteger("perfilImage")->nullable();
+            $table->string("perfilImage")->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

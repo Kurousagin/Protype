@@ -20,7 +20,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('/forum')" :active="request()->routeIs('/forum')">
                         {{ __('Forum') }}
                     </x-nav-link>
                 </div>
@@ -32,7 +32,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                        <img class="ring-2 ring-amber-500 ring-offset-4 rounded-full h-8 " src="{{ asset('site/img/eyes.jpeg') }}" />
+                        <img class="ring-2 ring-amber-500 ring-offset-4 rounded-full h-8 " src="{!! url('storage/'.Auth::user()->perfilImage) !!}"  />
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -51,7 +51,7 @@
                             {{ __('Perfil') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('/dashboard/edit')">
+                        <x-dropdown-link :href="route('/user/edit')">
                             {{ __('Editar Perfil') }}
                         </x-dropdown-link>
 
@@ -87,13 +87,13 @@
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('/exclusive')" :active="request()->routeIs('/exclusive')">
                 {{ __('Premium') }}
             </x-responsive-nav-link>
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('/forum')" :active="request()->routeIs('/forum')">
                 {{ __('Forum') }}
             </x-responsive-nav-link>
         </div>
@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-responsive-nav-link :href="route('/user/edit')" :active="request()->routeIs('/dashboard/edit')">
                         {{ __('Alterar perfil') }}
                     </x-responsive-nav-link>
                 </div>

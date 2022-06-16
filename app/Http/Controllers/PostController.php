@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\HttpFoundation\File\File;
 
 class PostController extends Controller
 {
@@ -16,23 +17,23 @@ class PostController extends Controller
      */
     public function index()
     {
-        
+
         $user = auth()->user();
 
         $posts = $user->posts;
-        
-        return view('dashboard')->with('posts', $posts);
+
+        return view('dashboard')->with('posts', $posts)->with('user', $user);
     }
 
     public function Home()
 
     {
-        $posts = Posts::orderBy('created_at', 'desc')->take(6)->get();
-        
+        $posts = Posts::orderBy('created_at', 'desc')->get();
+        $user = auth()->user();
 
 
 
-        return view('home')->with('posts', $posts);
+        return view('home')->with('posts', $posts)->with('user', $user);
     }
 
 
@@ -43,7 +44,17 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        // if(Input::file());
+        // {
+        //     $imagem = Input::file('imagem');
+        //     $extensao = $imagem->getClientOriginalExtension();
+        //     if($extensao != 'png' && $extensao != 'jpg');   {
+        //         return back();
+        //     }
+        // }
+        // $posts = new Posts();
+
+
     }
 
     /**
@@ -54,6 +65,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // if($request->hasFile('image')){
+        //     // Get filename with the extension
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     // Get just filename
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     // Get just ext
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     // Filename to store
+        //     $fileNameToStore= $filename.'_'.time().'.'.$extension;
+        //     // Upload Image
+        //     $path = $request->file('image')->storeAs('public/site/img', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.png';
+        // }
+        // //save in database
+        // $itens = Posts::create([
+        //     $user = auth()->user(),
+        //     'user_id' => $user->id,
+        //     'bodyContent' => $request->body,
+        //     'postImage' => $fileNameToStore
+        // ]);
+
+
+
         $posts = new Posts;
 
 
@@ -61,27 +96,17 @@ class PostController extends Controller
         $posts->user_id = $user->id;
         $posts->bodyContent =  $request->body;
 
+       
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
 
-
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $requestImage = $request->image;
-
-            $extensao = $requestImage->extension();
-
-            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extensao;
-
-            $request->image->move(public_path('site/img'), $imageName);
-
-            $posts->image = $imageName;
-        }
-
-
-
-        $posts->save();
-
-
-
+            $posts->postImage=$request->image->store('site/img/');
+            
+        
+    }
+            $posts->save();
+         
+        
         return redirect('/posts');
     }
 
@@ -106,7 +131,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -118,7 +142,6 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -129,6 +152,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Posts::findOrFail($id)->delete();
+
+        return redirect('dashboard');
     }
 }
