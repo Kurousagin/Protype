@@ -4,9 +4,13 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+           
+                <div class="shrink-0 flex items-center h-24" style="width: 25%">
+                    
+               
+
                 <x-nav-link :href="route('initi')" :active="request()->routeIs('initi')">
-                        <h1>{{ __('ConnectStudents') }}</h1>
+                <img  src="{!! url('site/img/22.png') !!}" alt="">
                     </x-nav-link>
                 </div>
 

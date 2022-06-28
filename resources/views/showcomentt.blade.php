@@ -20,7 +20,7 @@
 
                         <div class=" flex ">
                             <!-- onde vai ser chamada a imagem que o usuario tem como de perfil -->
- 
+
 
 
                             <div class="pl-10 text-black text-lg">
@@ -30,12 +30,12 @@
                                 </div>
 
                                 <div class=" font-normal hover:font-bold ">
-                                      <h1> {!! $value->user_social  !!}</h1>
-                                    </div>
-                             
+                                    <h1> {!! $value->user_social !!}</h1>
+                                </div>
+
 
                                 <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
-                               
+
 
                             </div>
 
@@ -43,9 +43,9 @@
 
                         </div>
 
-                     
 
-                       
+
+
 
 
 
@@ -59,14 +59,14 @@
 
 
     <?php endforeach; ?>
-    
 
 
 
 
 
-   
 
 
- 
+
+
+
 </x-app-layout>

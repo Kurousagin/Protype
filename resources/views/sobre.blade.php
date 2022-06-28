@@ -1,6 +1,7 @@
 @extends('layouts.wl')
 
 @section('content')
-<img class=" w-40 h-32 rounded-lg  " src="{{ asset('site/img/fachada.webp') }}" />
+
+<p class="text-white">Somos uma nova forma de interação entre estudantes, unm local para interação, divulgação de informações e diversão.</hp>
 
 @stop  

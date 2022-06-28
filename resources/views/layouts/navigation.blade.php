@@ -1,11 +1,12 @@
 <nav x-data="{ open: false }" class="bg-gray-100 border-b border-white">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-2 lg:px-8">
+        <div class="flex justify-between ">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <h1 class="">ConnectStudent</h1>
+                <div class="shrink-0 flex items-center h-16 " style="width: 25%">
+                    <img src="{!! url('site/img/22.png') !!}" alt="">
                 </div>
 
                 <!-- Navigation Links -->
@@ -20,19 +21,29 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+
                     <x-nav-link :href="route('/forum')" :active="request()->routeIs('/forum')">
-                        {{ __('Forum') }}
+                        {{ __('Forum') }} 
                     </x-nav-link>
+                   
                 </div>
+                @can('admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('/not')" :active="request()->routeIs('/not')">
+                        {{ __('Notícias') }}
+                    </x-nav-link>
+
+                </div>
+                @endcan
 
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
+            <div class="hidden sm:flex sm:items-center sm:ml-6 ">
+                <x-dropdown>
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                        <img class="ring-2 ring-amber-500 ring-offset-4 rounded-full h-8 " src="{!! url('storage/'.Auth::user()->perfilImage) !!}"  />
+                            <img class="ring-2 ring-amber-500 ring-offset-4 rounded-full " style="height: 45px; width: 160px" src="{!! url('storage/'.Auth::user()->perfilImage) !!}" />
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -44,16 +55,16 @@
 
                     <x-slot name="content">
                         <!-- Authentication -->
-                     
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('dashboard')">
-                            {{ __('Perfil') }}
-                        </x-dropdown-link>
+                                {{ __('Perfil') }}
+                            </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('/user/edit')">
-                            {{ __('Editar Perfil') }}
-                        </x-dropdown-link>
+                            <x-dropdown-link :href="route('/user/edit')">
+                                {{ __('Editar Perfil') }}
+                            </x-dropdown-link>
 
 
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
@@ -61,7 +72,7 @@
                                 {{ __('Sair') }}
                             </x-dropdown-link>
                         </form>
-                  
+
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -97,6 +108,13 @@
                 {{ __('Forum') }}
             </x-responsive-nav-link>
         </div>
+        @can('admin')
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('/not')" :active="request()->routeIs('/not')">
+                {{ __('Notícias') }}
+            </x-nav-link>
+        </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

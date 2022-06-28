@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Foundation\Auth\User as AuthUser;
+use App\Models\noticiesModel;
 use Illuminate\Http\Request;
-use Spatie\LaravelIgnition\Http\Requests\UpdateConfigRequest;
 
-
-class UserController extends Controller
+class noticiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,18 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('noticias.noticies');
     }
-
-
-    public function exibirUser($social)
-    {
-        $user = User::where('social', $social)->first();
-        $posts = $user->posts;
-        // dd($user);
-        return view('user.search')->with('user', $user)->with('posts', $posts);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -47,9 +34,32 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
-        //
+    
+
+
+        $not = new noticiesModel();
+
+
+        $user = auth()->user();
+        $not->user_id = $user->id;
+        $not->title =  $request->body;
+        $not->link =  $request->link; 
+
+
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+
+            $not->noticiaImage = $request->image->store('site/img/not');
+        }
+        $not->save();
+
+
+        return redirect('/posts');
     }
+
 
     /**
      * Display the specified resource.
@@ -57,9 +67,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show() 
     {
-        //
+        
     }
 
     /**
@@ -68,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        return view('user.edit');
+        //
     }
 
     /**
@@ -82,38 +92,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = User::find($id);
-
-        $user = auth()->user();
-
-        
-
-        $data->name = $request->name;
-        $data->social = $request->social;
-        $data->born = $request->born;
-        $data->escola = $request->escola;
-        $data->telefone = $request->telefone;
-        
-       
-        if($request->hasFile('image') && $request->file('image')->isValid()){
-            
-
-                $data->perfilImage=$request->image->store('user/'.$user->id);
-                
-           }
-
-        
-        
-
-
-        $data->update();
-        return back();
-        
-
-
-
-
-        // $data->update();
+        //
     }
 
     /**
@@ -124,8 +103,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        AuthUser::findOrFail($id)->delete();
+        noticiesModel::findOrFail($id)->delete();
 
-        return redirect('/');
+        return back();
     }
 }

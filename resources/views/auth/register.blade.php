@@ -2,7 +2,8 @@
     <x-auth-card>
     <x-slot  name="logo">
             <a href="/">
-                <h1 class="text-lg text-white ">ConnectStudent</h1>
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+
             </a>
         </x-slot>
 

@@ -14,22 +14,22 @@
 
                     <div class=" flex ">
 
-                        <a href=""> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 "  src="{!! url('storage/'.$post->user->perfilImage) !!}"/>
+                        <a href="{!! url('/posts/search-user/'.$post->user->social) !!}"> <img class="ring-2 ring-blue-500 ring-offset-4 rounded-full w-16 h-16 " src="{!! url('storage/'.$post->user->perfilImage) !!}" />
                         </a>
 
 
                         <div class="pl-10">
-                            <h3>{!! $post->bodyContent !!}</h3>
+                            <h1 class="col-8">{!! $post->bodyContent !!}</h1>
                             <img class=" max-h-screen rounded-lg" src="{!! url('storage/'.$post->postImage) !!}" alt="" />
                             <span class="pull-right"> {!! $post->created_at->diffForHumans() !!}</span>
                         </div>
-    
+
 
 
                     </div>
 
-                    <div class="static font-normal hover:font-bold">
-                        <a href="{{ route('dashboard') }}">{{ $post->user->social }}</a>
+                    <div class="static font-normal hover:font-bold p-2 ">
+                        <a href="{!! url('/posts/search-user/'.$post->user->social) !!}">{{ $post->user->social }}</a>
                     </div>
 
                 </div>
@@ -37,15 +37,17 @@
         </div>
 
     </div>
-
-    <a href=" {!! url('/coment/exibir/'.$post->id) !!}" class="text-white">Exibir
-                            </a>
-
-                            
-
+    <div class=" text-lg  pl-10 p-4">
+        <a href=" {!! url('/coment/exibir/'.$post->id) !!}" class="bg-cyan-400 rounded-lg p-2">Exibir
+        </a>
+    </div>
 
 
-    <div id="delete-btn" class="max-w-full mx-auto  lg:px-5 bg-amber-400 fixed right-10 bottom-10 rounded-full text-white">
+
+
+
+    <div id="delete-btn" class="max-w-full mx-auto  lg:px-5 bg-amber-400 fixed right-10 bottom-10 rounded-full text-xl p-4
+     text-white">
 
         <button onclick="">New coment</button>
 
@@ -68,22 +70,20 @@
 
             <input type="hidden" name="post_id" value="{{ $post->id }}">
 
-            <input name="body" id="body" class="w-full" placeholder="Seu comentário" style="border-radius: 20px"  autofocus>
+            <textarea type="text" name="body" id="body" class="w-full" placeholder="Seu comentário" style="border-radius: 20px" autofocus required></textarea>
 
 
             <hr class="my-4">
 
 
 
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 rounded-lg shadow  text-sm  h-5 w-5">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
+            <button type="submit" class="hover:bg-blue-600 rounded-lg shadow  text-sm  h-16 w-16">
+                <img src="{!! url('site/img/rat.png') !!}" alt="">
             </button>
 
-            
-                
-           
+
+
+
 
 
 

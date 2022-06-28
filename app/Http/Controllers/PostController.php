@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posts;
+use App\Models\noticiesModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
@@ -28,12 +29,15 @@ class PostController extends Controller
     public function Home()
 
     {
-        $posts = Posts::orderBy('created_at', 'desc')->get();
+        $posts = Posts::orderBy('created_at', 'desc')-> get();
+        $noticias = noticiesModel::orderBy('created_at', 'desc')-> get();
+        
         $user = auth()->user();
+      
 
 
 
-        return view('home')->with('posts', $posts)->with('user', $user);
+        return view('home')->with('posts', $posts)->with('user', $user)->with('noticias', $noticias);
     }
 
 
@@ -95,6 +99,7 @@ class PostController extends Controller
         $user = auth()->user();
         $posts->user_id = $user->id;
         $posts->bodyContent =  $request->body;
+        
 
        
         if($request->hasFile('image') && $request->file('image')->isValid()){
@@ -144,7 +149,7 @@ class PostController extends Controller
     {
     }
 
-    /**
+    /** 
      * Remove the specified resource from storage.
      *
      * @param  int  $id

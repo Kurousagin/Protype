@@ -78,6 +78,7 @@ class ComentController extends Controller
     {
         $post = Posts::find($id);
         $comentario = Comentt::where('posts_id', '=',$post->id)->orderBy('created_at', 'desc')->get();
+      
 
         return view('showcomentt')->with('posts', $post)->with('comentario', $comentario);
 

@@ -16,7 +16,7 @@
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 bg-white border-b border-gray-200">
 
-                                <h1 class="font-serif">Informações sobre mim:</h1>
+                                <h1 class="font-serif">Informações sobre: <b>{{ $user->name }}</b></h1>
                                 <div class="flex">
                                     <div class="">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -102,82 +102,34 @@
                             @endif
 
 
-                            <div class="pl-10 ">
-                                <p style="max-width: 250px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{!! $value->bodyContent !!}</p>
+                            <div class="pl-10">
+                                <h3>{!! $value->bodyContent !!}</h3>
                                 <img class=" w-24 rounded-lg h-20 " src="{!! url('storage/'.$value->postImage) !!}" alt="" />
-
+                                <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
                             </div>
 
-                            <!-- <div class="flex">
-
-                                <button> <a href="{!! url('post/edit/'.$value->id) !!}" class="btn btn-success" role="button">editar</a> </button>
-
-                            </div> -->
-              
 
 
 
-                            <div id="delete-btn" class="btn mt-6 btn-danger absolute right-8 ">
-
-                                <button><a href="{!! url('post/destroy/'.$value->id) !!}">Excluir</a></button>
-
-                            </div>
 
                         </div>
-
-
-
 
                         <div class="static font-normal hover:font-bold">
-                            <a href="{!! url('/posts/search-user/'.$value->user->social) !!}">{{ Auth::user()->social }}</a>
-
+                            <a href="{{ route('dashboard') }}">{{ $user->social }}</a>
                         </div>
+
                         <div class=" text-white">
 
                             <button> <a href="{!! url('visualizar-post/'.$value->id) !!}" class="btn btn-success" role="button">Visualizar</a> </button>
 
                         </div>
-                        <span class="pull-right"> {!! $value->created_at->diffForHumans() !!}</span>
 
                     </div>
                 </div>
             </div>
 
-            
-     
-
-
-
-
+        </div>
     <?php endforeach; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const overlay = document.querySelector('#overlay')
-            const delBtn = document.querySelector('#delete-btn')
-            const closeBtn = document.querySelector('#close-modal')
-
-            const toggleModal = () => {
-                overlay.classList.toggle('hidden')
-
-            }
-
-            delBtn.addEventListener('click', toggleModal)
-
-            closeBtn.addEventListener('click', toggleModal)
-        })
-    </script>
 
 
 
